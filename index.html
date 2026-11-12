@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,13 +100,13 @@ Controllers: Left stick / D-pad move · Button 0 jump · Button 2 dash
 </p>
 </section>
 
-<footer>T.Koi Adventure World · Version 0.7</footer>
+<footer>T.Koi Adventure World · Version 1.0</footer>
 
 <script>
 "use strict";
 
 // ==========================================
-// T.KOI ADVENTURE WORLD - VERSION 0.7
+// T.KOI ADVENTURE WORLD - VERSION 1.0
 // STABLE FOUNDATION
 // ==========================================
 
@@ -433,39 +432,29 @@ function inputFor(i){
   {left:"j",right:"l",jump:"i",dash:"k"},
   {left:"arrowleft",right:"arrowright",jump:"arrowup",dash:"arrowdown"}
  ];
-
  const m = maps[i];
-
  const result = {
-   left:!!keys[m.left],
-   right:!!keys[m.right],
-   jump:!!keys[m.jump],
-   dash:!!keys[m.dash]
+  left:!!keys[m.left], right:!!keys[m.right],
+  jump:!!keys[m.jump], dash:!!keys[m.dash]
  };
 
- const pads = Array.from(
-   navigator.getGamepads ? navigator.getGamepads() : []
- ).filter(Boolean);
-
+ // Preserve browser controller indexes; filtering null slots can misassign pads.
+ const pads = navigator.getGamepads ? navigator.getGamepads() : [];
  const pad = pads[i];
 
  if(pad){
-   const axis = pad.axes[0] || 0;
+  const axes = Array.from(pad.axes || []);
+  const axis0 = axes[0] || 0;
+  const axis2 = axes[2] || 0;
+  const axis = Math.abs(axis0) >= Math.abs(axis2) ? axis0 : axis2;
+  const pressed = index => !!pad.buttons?.[index]?.pressed;
 
-   result.left = result.left || axis < -0.25 ||
-     !!pad.buttons[14]?.pressed;
-
-   result.right = result.right || axis > 0.25 ||
-     !!pad.buttons[15]?.pressed;
-
-   result.jump = result.jump ||
-     !!pad.buttons[0]?.pressed ||
-     !!pad.buttons[12]?.pressed;
-
-   result.dash = result.dash ||
-     !!pad.buttons[2]?.pressed;
+  // Standard D-pad: 14=left, 15=right. Alternate mappings: 16/17.
+  result.left = result.left || axis < -0.25 || pressed(14) || pressed(16);
+  result.right = result.right || axis > 0.25 || pressed(15) || pressed(17);
+  result.jump = result.jump || pressed(0) || pressed(12);
+  result.dash = result.dash || pressed(2);
  }
-
  return result;
 }
 
@@ -735,13 +724,17 @@ function update(){
 
    const input = inputFor(i);
 
-   // Horizontal movement
-   if(input.left)p.vx -= 0.65;
-   if(input.right)p.vx += 0.65;
-
-   if(!input.left&&!input.right)p.vx *= 0.82;
-
-   p.vx = Math.max(-5.2,Math.min(5.2,p.vx));
+   // Direct horizontal movement prevents accumulated velocity from sticking.
+   if(input.left && !input.right){
+    p.vx = -5.2;
+   }else if(input.right && !input.left){
+    p.vx = 5.2;
+   }else if(input.left && input.right){
+    p.vx = 0;
+   }else{
+    p.vx *= 0.78;
+    if(Math.abs(p.vx)<0.15)p.vx=0;
+   }
 
    // Jump
    if(input.jump&&!p.jumpHeld&&p.grounded){
@@ -919,13 +912,12 @@ function update(){
    return;
  }
 
- // Shared camera
+ // Shared camera with a dead zone:
+ // Let the player visibly move across the screen first.
+ // Only start scrolling after the leading player reaches 55% of the screen.
  const furthest = Math.max(...players.map(p=>p.x));
-
- camera = Math.max(
-   0,
-   Math.min(worldWidth-W,furthest-W*0.48)
- );
+ const cameraTarget = furthest - W*0.55;
+ camera = Math.max(0, Math.min(worldWidth-W, cameraTarget));
 }
 
 // ==========================================
@@ -1069,7 +1061,7 @@ function drawBackground(info){
 }
 
 function drawPlayer(p){
- const x = p.x-camera;
+ const x = p.x; // Camera is already applied by ctx.translate(-camera, 0).
  const y = p.y;
 
  if(p.invuln>0&&Math.floor(frame/5)%2===0)return;
@@ -1135,7 +1127,7 @@ function drawPlayer(p){
 function drawEnemy(e){
  if(!e.alive)return;
 
- const x=e.x-camera;
+ const x=e.x; // Camera is already applied by ctx.translate(-camera, 0).
  const y=e.y;
 
  const colors={
