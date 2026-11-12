@@ -3,48 +3,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>T.Koi Adventure World</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#11172e;color:white;
- font-family:Arial,sans-serif;text-align:center
-}
+body{margin:0;background:#10172e;color:#fff;font-family:Arial,sans-serif;text-align:center}
 header{padding:14px;background:#1b2548}
-h1{margin:3px;color:#ffe477;font-size:clamp(25px,4vw,38px)}
+h1{margin:4px;color:#ffe477;font-size:clamp(25px,4vw,38px)}
 header p{margin:5px;color:#cbd7ff}
-.panel{
- width:min(94%,720px);margin:16px auto;padding:20px;
- background:#202d53;border:2px solid #667bb8;border-radius:16px
-}
-button,input,select{
- font-size:15px;padding:10px;margin:5px;border:0;border-radius:8px
-}
-button{
- background:#ffcf57;color:#29203b;font-weight:bold;cursor:pointer
-}
+.panel{width:min(94%,720px);margin:16px auto;padding:20px;background:#202d53;border:2px solid #667bb8;border-radius:16px}
+button,input,select{font-size:15px;padding:10px;margin:5px;border:0;border-radius:8px}
+button{background:#ffcf57;color:#29203b;font-weight:bold;cursor:pointer}
 button:hover{background:#ffea9e}
-button:disabled{background:#58627d;color:#c0c5d2;cursor:not-allowed}
-input,select{max-width:95%;background:white;color:#222}
+button:disabled{background:#59617b;color:#c0c5d2;cursor:not-allowed}
+input,select{max-width:95%;background:#fff;color:#222}
 .hidden{display:none!important}
-#game{
- display:block;width:min(100%,960px);height:auto;
- margin:12px auto;border:3px solid #7285c9;
- border-radius:12px;background:#70c9ee
-}
-#hud{
- width:min(100%,960px);margin:10px auto;
- display:flex;justify-content:space-around;gap:8px;flex-wrap:wrap
-}
-.hudItem{
- background:#202d53;padding:8px 12px;border-radius:8px;
- font-size:14px
-}
+#game{display:block;width:min(100%,960px);height:auto;margin:12px auto;border:3px solid #7285c9;border-radius:12px;background:#70c9ee}
+#hud{width:min(100%,960px);margin:10px auto;display:flex;justify-content:space-around;gap:8px;flex-wrap:wrap}
+.hudItem{background:#202d53;padding:8px 12px;border-radius:8px;font-size:14px}
 #message{min-height:25px;color:#ffe477;font-weight:bold}
-#levelGrid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px
-}
+#levelGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .levelButton{min-height:65px;white-space:normal}
 .small{font-size:13px;color:#cbd7ff;line-height:1.7}
 #finishPanel{max-width:600px}
@@ -54,90 +32,84 @@ footer{padding:20px;color:#9eacd4;font-size:12px}
 <body>
 
 <header>
- <h1>🌟 T.Koi Adventure World 🌟</h1>
- <p>Your fantasy adventure begins here!</p>
+<h1>🌟 T.Koi Adventure World 🌟</h1>
+<p>Your fantasy adventure begins here!</p>
 </header>
 
 <section id="menu" class="panel">
- <h2>Welcome, Adventurers!</h2>
- <p>Choose your team and prepare for the journey.</p>
+<h2>Welcome, Adventurers!</h2>
+<p>Choose your team and prepare for the journey.</p>
 
- <p>
-  Players:
-  <select id="playerCount">
-   <option value="1">1 Player</option>
-   <option value="2">2 Players</option>
-   <option value="3" selected>3 Players</option>
-  </select>
- </p>
+<p>Players:
+<select id="playerCount">
+<option value="1">1 Player</option>
+<option value="2">2 Players</option>
+<option value="3" selected>3 Players</option>
+</select></p>
 
- <p>
-  Game mode:
-  <select id="gameMode">
-   <option value="coop">Cooperative Adventure</option>
-   <option value="versus">Competitive Adventure</option>
-  </select>
- </p>
+<p>Game mode:
+<select id="gameMode">
+<option value="coop">Cooperative Adventure</option>
+<option value="versus">Competitive Adventure</option>
+</select></p>
 
- <div>
-  <input id="name1" value="Player 1" maxlength="12" aria-label="Player 1 name">
-  <input id="name2" value="Player 2" maxlength="12" aria-label="Player 2 name">
-  <input id="name3" value="Player 3" maxlength="12" aria-label="Player 3 name">
- </div>
+<div>
+<input id="name1" value="Player 1" maxlength="12" aria-label="Player 1 name">
+<input id="name2" value="Player 2" maxlength="12" aria-label="Player 2 name">
+<input id="name3" value="Player 3" maxlength="12" aria-label="Player 3 name">
+</div>
 
- <p><button id="begin">🗺️ CHOOSE YOUR ADVENTURE</button></p>
- <p><button id="controllerCheck">🎮 Check Controllers</button></p>
- <div id="controllerStatus" class="small">Connect your controllers and check here.</div>
- <p class="small">Music begins after you start the adventure. You can turn it off during gameplay.</p>
+<p><button id="begin">🗺️ CHOOSE YOUR ADVENTURE</button></p>
+<p><button id="controllerCheck">🎮 Check Controllers</button></p>
+<div id="controllerStatus" class="small">Connect your controllers and check here.</div>
 </section>
 
 <section id="select" class="panel hidden">
- <h2>🗺️ World Map</h2>
- <p id="progressText"></p>
- <div id="levelGrid"></div>
- <p><button id="backMenu">Back to Main Menu</button></p>
+<h2>🗺️ World Map</h2>
+<p id="progressText"></p>
+<div id="levelGrid"></div>
+<p><button id="backMenu">Back to Main Menu</button></p>
 </section>
 
 <section id="playArea" class="hidden">
- <div id="hud">
-  <span class="hudItem" id="worldLabel">World</span>
-  <span class="hudItem" id="levelLabel">Level</span>
-  <span class="hudItem" id="coinLabel">Coins: 0</span>
-  <span class="hudItem" id="lifeLabel">Hearts: 3</span>
-  <span class="hudItem" id="scoreLabel">Score: 0</span>
- </div>
+<div id="hud">
+<span class="hudItem" id="worldLabel">World</span>
+<span class="hudItem" id="levelLabel">Level</span>
+<span class="hudItem" id="coinLabel">Coins: 0</span>
+<span class="hudItem" id="lifeLabel">Hearts: 3</span>
+<span class="hudItem" id="scoreLabel">Score: 0</span>
+</div>
 
- <canvas id="game" width="960" height="540"></canvas>
+<canvas id="game" width="960" height="540"></canvas>
+<div id="message">Good luck, adventurers!</div>
 
- <div id="message">Good luck, adventurers!</div>
+<p>
+<button id="musicButton">🎵 Music: ON</button>
+<button id="sfxButton">🔊 Sound: ON</button>
+</p>
+<p>
+<button id="pauseButton">Pause</button>
+<button id="restartButton">Restart Level</button>
+<button id="levelsButton">World Map</button>
+</p>
 
- <p>
-  <button id="musicButton">🎵 Music: ON</button>
-  <button id="sfxButton">🔊 Sound: ON</button>
- </p>
-
- <p>
-  <button id="pauseButton">Pause</button>
-  <button id="restartButton">Restart Level</button>
-  <button id="levelsButton">World Map</button>
- </p>
-
- <p class="small">
-  P1: A / D move · W jump · S dash<br>
-  P2: J / L move · I jump · K dash<br>
-  P3: ← / → move · ↑ jump · ↓ dash<br>
-  Controllers: Left stick / D-pad move · Button 0 jump · Button 2 dash
- </p>
+<p class="small">
+P1: A / D move · W jump · S dash<br>
+P2: J / L move · I jump · K dash<br>
+P3: ← / → move · ↑ jump · ↓ dash<br>
+Controllers: Left stick / D-pad move · Button 0 jump · Button 2 dash
+</p>
 </section>
 
-<footer>T.Koi Adventure World · Version 0.6</footer>
+<footer>T.Koi Adventure World · Version 0.7</footer>
 
 <script>
 "use strict";
 
-// ===============================================
-// T.KOI ADVENTURE WORLD — VERSION 0.6
-// ===============================================
+// ==========================================
+// T.KOI ADVENTURE WORLD - VERSION 0.7
+// STABLE FOUNDATION
+// ==========================================
 
 const $ = id => document.getElementById(id);
 const canvas = $("game");
@@ -163,170 +135,192 @@ const levelNames = [
  ["Castle Courtyard","Haunted Halls","Shadow King"]
 ];
 
-let players=[];
-let enemies=[];
-let coins=[];
-let platforms=[];
-let hazards=[];
+let players = [];
+let enemies = [];
+let coins = [];
+let platforms = [];
+let hazards = [];
 
-let level=0;
-let unlocked=0;
-let worldWidth=3000;
-let camera=0;
-let frame=0;
-let totalCoins=0;
-let totalScore=0;
+let level = 0;
+let unlocked = 0;
+let worldWidth = 2400;
+let camera = 0;
+let frame = 0;
+let totalCoins = 0;
+let totalScore = 0;
 
-let running=false;
-let paused=false;
-let gameMode="coop";
-let lastTime=0;
-let keys={};
+let running = false;
+let paused = false;
+let gameMode = "coop";
+let keys = {};
+let animationId = null;
 
-let audioCtx=null;
-let musicEnabled=true;
-let sfxEnabled=true;
-let musicTimer=null;
-let musicStep=0;
+let audioCtx = null;
+let musicEnabled = true;
+let sfxEnabled = true;
+let musicTimer = null;
+let musicStep = 0;
 
-const melody=[
+const melody = [
  392,440,523,440,392,330,392,440,
  523,587,523,440,392,330,349,392
 ];
 
 try {
- unlocked=Math.max(0,Math.min(14,
-   Number(localStorage.getItem("tkoiUnlocked")||0)
+ unlocked = Math.max(0,Math.min(14,
+   Number(localStorage.getItem("tkoiUnlocked") || 0)
  ));
-} catch(e) {
- unlocked=0;
+} catch(error) {
+ unlocked = 0;
 }
 
-// ===============================================
-// AUDIO SYSTEM — ORIGINAL SYNTHESIZED MUSIC
-// ===============================================
+// ==========================================
+// AUDIO
+// ==========================================
 
 function startAudio(){
- const AudioClass=window.AudioContext||window.webkitAudioContext;
- if(!AudioClass)return;
+ try {
+   const AudioClass = window.AudioContext || window.webkitAudioContext;
+   if(!AudioClass)return;
 
- if(!audioCtx)audioCtx=new AudioClass();
+   if(!audioCtx)audioCtx = new AudioClass();
 
- if(audioCtx.state==="suspended")audioCtx.resume();
+   if(audioCtx.state === "suspended"){
+     audioCtx.resume().catch(()=>{});
+   }
 
- if(musicEnabled&&!musicTimer){
-   musicStep=0;
-   musicTimer=setInterval(playMusicNote,320);
+   if(musicEnabled && !musicTimer){
+     musicStep = 0;
+     musicTimer = setInterval(playMusicNote,350);
+   }
+ } catch(error) {
+   console.warn("Audio unavailable:",error);
  }
 }
 
 function playTone(freq,duration,volume,type="sine"){
- if(!sfxEnabled||!audioCtx)return;
+ if(!sfxEnabled || !audioCtx)return;
 
- const osc=audioCtx.createOscillator();
- const gain=audioCtx.createGain();
+ try {
+   const osc = audioCtx.createOscillator();
+   const gain = audioCtx.createGain();
 
- osc.type=type;
- osc.frequency.setValueAtTime(freq,audioCtx.currentTime);
+   osc.type = type;
+   osc.frequency.setValueAtTime(freq,audioCtx.currentTime);
 
- gain.gain.setValueAtTime(volume,audioCtx.currentTime);
- gain.gain.exponentialRampToValueAtTime(
-   0.001,audioCtx.currentTime+duration
- );
+   gain.gain.setValueAtTime(volume,audioCtx.currentTime);
+   gain.gain.exponentialRampToValueAtTime(
+     0.001,audioCtx.currentTime+duration
+   );
 
- osc.connect(gain);
- gain.connect(audioCtx.destination);
- osc.start();
- osc.stop(audioCtx.currentTime+duration);
-}
+   osc.connect(gain);
+   gain.connect(audioCtx.destination);
 
-function playAmbientNote(freq){
- if(!audioCtx||!musicEnabled)return;
-
- const osc=audioCtx.createOscillator();
- const gain=audioCtx.createGain();
-
- osc.type="sine";
- osc.frequency.value=freq;
-
- gain.gain.setValueAtTime(0.018,audioCtx.currentTime);
- gain.gain.exponentialRampToValueAtTime(
-   0.001,audioCtx.currentTime+1.1
- );
-
- osc.connect(gain);
- gain.connect(audioCtx.destination);
- osc.start();
- osc.stop(audioCtx.currentTime+1.1);
+   osc.start();
+   osc.stop(audioCtx.currentTime+duration);
+ } catch(error) {
+   console.warn("Sound effect unavailable:",error);
+ }
 }
 
 function playMusicNote(){
- if(!audioCtx||!musicEnabled)return;
+ if(!audioCtx || !musicEnabled)return;
 
- const note=melody[musicStep%melody.length];
- const osc=audioCtx.createOscillator();
- const gain=audioCtx.createGain();
+ try {
+   const note = melody[musicStep % melody.length];
+   const osc = audioCtx.createOscillator();
+   const gain = audioCtx.createGain();
 
- osc.type="triangle";
- osc.frequency.value=note;
+   osc.type = "triangle";
+   osc.frequency.value = note;
 
- gain.gain.setValueAtTime(0.001,audioCtx.currentTime);
- gain.gain.linearRampToValueAtTime(
-   0.045,audioCtx.currentTime+0.06
- );
- gain.gain.exponentialRampToValueAtTime(
-   0.001,audioCtx.currentTime+0.29
- );
+   gain.gain.setValueAtTime(0.001,audioCtx.currentTime);
+   gain.gain.linearRampToValueAtTime(
+     0.04,audioCtx.currentTime+0.06
+   );
+   gain.gain.exponentialRampToValueAtTime(
+     0.001,audioCtx.currentTime+0.3
+   );
 
- osc.connect(gain);
- gain.connect(audioCtx.destination);
- osc.start();
- osc.stop(audioCtx.currentTime+0.3);
+   osc.connect(gain);
+   gain.connect(audioCtx.destination);
 
- if(musicStep%4===0)playAmbientNote(note/2);
+   osc.start();
+   osc.stop(audioCtx.currentTime+0.31);
 
- musicStep++;
+   if(musicStep % 4 === 0){
+     playAmbientNote(note/2);
+   }
+
+   musicStep++;
+ } catch(error) {
+   console.warn("Music unavailable:",error);
+ }
+}
+
+function playAmbientNote(freq){
+ if(!audioCtx || !musicEnabled)return;
+
+ try {
+   const osc = audioCtx.createOscillator();
+   const gain = audioCtx.createGain();
+
+   osc.type = "sine";
+   osc.frequency.value = freq;
+
+   gain.gain.setValueAtTime(0.015,audioCtx.currentTime);
+   gain.gain.exponentialRampToValueAtTime(
+     0.001,audioCtx.currentTime+1
+   );
+
+   osc.connect(gain);
+   gain.connect(audioCtx.destination);
+
+   osc.start();
+   osc.stop(audioCtx.currentTime+1);
+ } catch(error) {}
+}
+
+function playVictory(){
+ playTone(523,0.3,0.1);
+ playTone(659,0.4,0.08);
+ playTone(784,0.5,0.08);
 }
 
 function toggleMusic(){
- musicEnabled=!musicEnabled;
+ musicEnabled = !musicEnabled;
 
  if(musicEnabled){
    startAudio();
- }else{
+ } else {
    clearInterval(musicTimer);
-   musicTimer=null;
+   musicTimer = null;
  }
 
- $("musicButton").textContent=
+ $("musicButton").textContent =
    "🎵 Music: "+(musicEnabled?"ON":"OFF");
 }
 
 function toggleSFX(){
- sfxEnabled=!sfxEnabled;
- $("sfxButton").textContent=
+ sfxEnabled = !sfxEnabled;
+ $("sfxButton").textContent =
    "🔊 Sound: "+(sfxEnabled?"ON":"OFF");
 }
 
-function playVictory(){
- playTone(523,0.35,0.1);
- setTimeout(()=>playTone(659,0.35,0.1),160);
- setTimeout(()=>playTone(784,0.6,0.1),320);
-}
-
-// ===============================================
-// SCREEN AND MENU SYSTEM
-// ===============================================
+// ==========================================
+// SCREENS
+// ==========================================
 
 function showScreen(which){
- $("menu").classList.toggle("hidden",which!=="menu");
- $("select").classList.toggle("hidden",which!=="select");
- $("playArea").classList.toggle("hidden",which!=="play");
+ $("menu").classList.toggle("hidden",which !== "menu");
+ $("select").classList.toggle("hidden",which !== "select");
+ $("playArea").classList.toggle("hidden",which !== "play");
 }
 
 function getLevelInfo(n){
- const world=Math.floor(n/3);
- const stage=n%3;
+ const world = Math.floor(n/3);
+ const stage = n%3;
+
  return {
    world,
    stage,
@@ -335,29 +329,40 @@ function getLevelInfo(n){
  };
 }
 
-function renderLevelSelect(){
- const grid=$("levelGrid");
- grid.innerHTML="";
+// ==========================================
+// WORLD MAP
+// ==========================================
 
- $("progressText").textContent=
+function renderLevelSelect(){
+ const grid = $("levelGrid");
+ grid.innerHTML = "";
+
+ $("progressText").textContent =
    "Unlocked stages: "+(unlocked+1)+" / 15";
 
  worlds.forEach((world,wi)=>{
-   const heading=document.createElement("div");
-   heading.style.gridColumn="1/-1";
-   const title=document.createElement("h3");
-   title.textContent=world.emoji+" World "+(wi+1)+": "+world.name;
+   const heading = document.createElement("div");
+   heading.style.gridColumn = "1/-1";
+
+   const title = document.createElement("h3");
+   title.textContent =
+     world.emoji+" World "+(wi+1)+": "+world.name;
+
    heading.appendChild(title);
    grid.appendChild(heading);
 
    for(let s=0;s<3;s++){
-     const n=wi*3+s;
-     const button=document.createElement("button");
-     button.className="levelButton";
-     button.textContent=(n<=unlocked?"🔓 ":"🔒 ")+
+     const n = wi*3+s;
+     const button = document.createElement("button");
+
+     button.className = "levelButton";
+     button.textContent =
+       (n<=unlocked?"🔓 ":"🔒 ")+
        "Level "+(s+1)+"\n"+levelNames[wi][s];
-     button.disabled=n>unlocked;
+
+     button.disabled = n>unlocked;
      button.addEventListener("click",()=>startGame(n));
+
      grid.appendChild(button);
    }
  });
@@ -369,13 +374,12 @@ $("begin").addEventListener("click",()=>{
 });
 
 $("backMenu").addEventListener("click",()=>{
- running=false;
+ stopGame();
  showScreen("menu");
 });
 
 $("levelsButton").addEventListener("click",()=>{
- running=false;
- paused=false;
+ stopGame();
  renderLevelSelect();
  showScreen("select");
 });
@@ -384,103 +388,114 @@ $("restartButton").addEventListener("click",()=>{
  startGame(level);
 });
 
-$("pauseButton").addEventListener("click",()=>{
- togglePause();
-});
-
+$("pauseButton").addEventListener("click",togglePause);
 $("musicButton").addEventListener("click",toggleMusic);
 $("sfxButton").addEventListener("click",toggleSFX);
 
-// ===============================================
-// CONTROLLER DETECTION
-// ===============================================
+// ==========================================
+// CONTROLLERS AND KEYBOARD
+// ==========================================
 
 function checkControllers(){
- const pads=Array.from(
-   navigator.getGamepads?navigator.getGamepads():[]
+ const pads = Array.from(
+   navigator.getGamepads ? navigator.getGamepads() : []
  ).filter(Boolean);
 
- $("controllerStatus").textContent=pads.length
- ?pads.length+" controller(s) detected. Press a button to wake them up."
- :"No controllers detected. Connect a controller and check again.";
+ $("controllerStatus").textContent = pads.length
+   ? pads.length+" controller(s) detected."
+   : "No controllers detected. Connect and check again.";
 }
 
 $("controllerCheck").addEventListener("click",checkControllers);
-
 window.addEventListener("gamepadconnected",checkControllers);
 window.addEventListener("gamepaddisconnected",checkControllers);
 
-window.addEventListener("keydown",e=>{
- const k=e.key.toLowerCase();
- keys[k]=true;
+window.addEventListener("keydown",event=>{
+ const key = event.key.toLowerCase();
+ keys[key] = true;
 
- if(["arrowup","arrowdown","arrowleft","arrowright"," "].includes(k)){
-   e.preventDefault();
+ if(["arrowup","arrowdown","arrowleft","arrowright"," "].includes(key)){
+   event.preventDefault();
  }
 
- if(e.key==="Escape"&&running)togglePause();
+ if(event.key === "Escape" && running){
+   togglePause();
+ }
 });
 
-window.addEventListener("keyup",e=>{
- keys[e.key.toLowerCase()]=false;
+window.addEventListener("keyup",event=>{
+ keys[event.key.toLowerCase()] = false;
 });
 
 function inputFor(i){
- const maps=[
-   {left:"a",right:"d",jump:"w",dash:"s"},
-   {left:"j",right:"l",jump:"i",dash:"k"},
-   {left:"arrowleft",right:"arrowright",jump:"arrowup",dash:"arrowdown"}
+ const maps = [
+  {left:"a",right:"d",jump:"w",dash:"s"},
+  {left:"j",right:"l",jump:"i",dash:"k"},
+  {left:"arrowleft",right:"arrowright",jump:"arrowup",dash:"arrowdown"}
  ];
 
- const m=maps[i];
+ const m = maps[i];
 
- const input={
+ const result = {
    left:!!keys[m.left],
    right:!!keys[m.right],
    jump:!!keys[m.jump],
    dash:!!keys[m.dash]
  };
 
- const pads=Array.from(
-   navigator.getGamepads?navigator.getGamepads():[]
+ const pads = Array.from(
+   navigator.getGamepads ? navigator.getGamepads() : []
  ).filter(Boolean);
 
- const pad=pads[i];
+ const pad = pads[i];
 
  if(pad){
-   const axis=pad.axes[0]||0;
-   input.left=input.left||axis<-.25||!!pad.buttons[14]?.pressed;
-   input.right=input.right||axis>.25||!!pad.buttons[15]?.pressed;
-   input.jump=input.jump||!!pad.buttons[0]?.pressed||!!pad.buttons[12]?.pressed;
-   input.dash=input.dash||!!pad.buttons[2]?.pressed;
+   const axis = pad.axes[0] || 0;
+
+   result.left = result.left || axis < -0.25 ||
+     !!pad.buttons[14]?.pressed;
+
+   result.right = result.right || axis > 0.25 ||
+     !!pad.buttons[15]?.pressed;
+
+   result.jump = result.jump ||
+     !!pad.buttons[0]?.pressed ||
+     !!pad.buttons[12]?.pressed;
+
+   result.dash = result.dash ||
+     !!pad.buttons[2]?.pressed;
  }
 
- return input;
+ return result;
 }
 
-// ===============================================
+// ==========================================
 // PLAYER SETUP
-// ===============================================
+// ==========================================
 
 function createPlayers(){
- const count=Number($("playerCount").value);
- const names=[
+ const count = Number($("playerCount").value);
+
+ const names = [
    $("name1").value,
    $("name2").value,
    $("name3").value
  ];
- const colors=["#ff6878","#54d8ff","#ffda62"];
 
- players=[];
+ const colors = ["#ff6878","#54d8ff","#ffda62"];
+
+ players = [];
 
  for(let i=0;i<count;i++){
    players.push({
-     name:names[i].trim()||"Player "+(i+1),
+     name:names[i].trim() || "Player "+(i+1),
      color:colors[i],
      x:65+i*40,
      y:FLOOR-42,
-     vx:0,vy:0,
-     w:30,h:42,
+     vx:0,
+     vy:0,
+     w:30,
+     h:42,
      grounded:false,
      hearts:3,
      invuln:0,
@@ -493,62 +508,65 @@ function createPlayers(){
    });
  }
 
- totalCoins=0;
- totalScore=0;
+ totalCoins = 0;
+ totalScore = 0;
 }
 
-// ===============================================
+// ==========================================
 // LEVEL GENERATION
-// ===============================================
+// ==========================================
 
 function makeEnemy(x,y,type,boss){
  return {
    x,y,baseY:y,
-   vx:boss?1.15:1.2,
+   vx:boss?1:1.1,
    alive:true,
    type,
    boss,
    w:boss?76:42,
    h:boss?76:38,
-   hp:boss?6:1,
+   hp:boss?5:1,
    phase:Math.random()*6
  };
 }
 
 function buildLevel(n){
- level=n;
+ level = n;
 
- const info=getLevelInfo(n);
- worldWidth=3000+info.stage*300;
- camera=0;
- frame=0;
+ const info = getLevelInfo(n);
 
- enemies=[];
- coins=[];
- platforms=[];
- hazards=[];
+ worldWidth = 2400 + info.stage*200;
+ camera = 0;
+ frame = 0;
 
- levelComplete=false;
+ enemies = [];
+ coins = [];
+ platforms = [];
+ hazards = [];
 
  players.forEach((p,i)=>{
-   p.x=65+i*40;
-   p.y=FLOOR-p.h;
-   p.vx=0;p.vy=0;
-   p.grounded=false;
-   p.hearts=3;
-   p.invuln=0;
-   p.dash=0;
-   p.dashCooldown=0;
-   p.won=false;
+   p.x = 65+i*40;
+   p.y = FLOOR-p.h;
+   p.vx = 0;
+   p.vy = 0;
+   p.grounded = false;
+   p.hearts = 3;
+   p.invuln = 0;
+   p.dash = 0;
+   p.dashCooldown = 0;
+   p.won = false;
+   p.jumpHeld = false;
+   p.dashHeld = false;
  });
 
- // Platforms and enemies
- for(let x=350;x<worldWidth-300;x+=300){
-   const y=320+Math.floor(Math.random()*90);
+ // Safe, reachable platforms and collectibles.
+ for(let x=330;x<worldWidth-280;x+=310){
+   const y = 340 + Math.floor(Math.random()*65);
 
    platforms.push({
-     x,y,
-     w:125+Math.random()*55,
+     x,
+     y,
+     w:130,
      h:18
    });
 
@@ -558,106 +576,125 @@ function buildLevel(n){
      got:false
    });
 
-   if(Math.random()>.18){
-     enemies.push(makeEnemy(
-       x+155,FLOOR-38,info.data.enemy,false
-     ));
+   if(Math.random()>0.25){
+     enemies.push(
+       makeEnemy(x+165,FLOOR-38,info.data.enemy,false)
+     );
    }
 
-   if(Math.random()>.55){
+   // Hazards are small and have plenty of safe ground around them.
+   if(Math.random()>0.65){
      hazards.push({
-       x:x+220,
-       y:FLOOR-14,
-       w:55,
-       h:14
+       x:x+245,
+       y:FLOOR-12,
+       w:32,
+       h:12
      });
    }
  }
 
- // Boss stage
+ // Boss on the third stage of each world.
  if(info.stage===2){
-   enemies.push(makeEnemy(
-     worldWidth-500,FLOOR-80,info.data.enemy,true
-   ));
+   enemies.push(
+     makeEnemy(worldWidth-490,FLOOR-76,info.data.enemy,true)
+   );
  }
 
- // Ground collectibles
+ // Ground coins.
  for(let x=180;x<worldWidth-180;x+=190){
-   if(Math.random()>.3){
+   if(Math.random()>0.35){
      coins.push({
        x,
-       y:FLOOR-75-Math.random()*45,
+       y:FLOOR-70,
        got:false
      });
    }
  }
 
- $("worldLabel").textContent=
+ $("worldLabel").textContent =
    info.data.emoji+" "+info.data.name;
 
- $("levelLabel").textContent=
+ $("levelLabel").textContent =
    "Stage "+(info.stage+1)+": "+info.name;
 
- $("message").textContent=
-   "Find coins, defeat enemies and reach the glowing portal!";
+ $("message").textContent =
+   "Find coins, avoid hazards and reach the purple portal!";
 
  updateHUD();
 }
 
-// ===============================================
-// START, PAUSE AND RESTART
-// ===============================================
+// ==========================================
+// START AND STOP
+// ==========================================
+
+function stopGame(){
+ running = false;
+ paused = false;
+
+ if(animationId !== null){
+   cancelAnimationFrame(animationId);
+   animationId = null;
+ }
+}
 
 function startGame(n){
- gameMode=$("gameMode").value;
+ stopGame();
+
+ gameMode = $("gameMode").value;
+
  createPlayers();
  buildLevel(n);
 
- running=true;
- paused=false;
- lastTime=0;
+ running = true;
+ paused = false;
 
- $("pauseButton").textContent="Pause";
+ $("pauseButton").textContent = "Pause";
 
- const finish=$("finishPanel");
- if(finish)finish.remove();
+ const old = $("finishPanel");
+ if(old)old.remove();
 
  showScreen("play");
  startAudio();
 
  draw();
- requestAnimationFrame(loop);
+ animationId = requestAnimationFrame(loop);
 }
 
 function togglePause(){
  if(!running)return;
 
- paused=!paused;
- $("pauseButton").textContent=paused?"Resume":"Pause";
+ paused = !paused;
 
- if(!paused){
-   lastTime=0;
-   requestAnimationFrame(loop);
- }else{
+ $("pauseButton").textContent =
+   paused?"Resume":"Pause";
+
+ if(paused){
+   if(animationId !== null){
+     cancelAnimationFrame(animationId);
+     animationId = null;
+   }
    draw();
+ }else{
+   animationId = requestAnimationFrame(loop);
  }
 }
 
-// ===============================================
-// GAME HELPERS
-// ===============================================
+// ==========================================
+// COLLISION HELPERS
+// ==========================================
 
 function rects(a,b){
- return a.x<b.x+b.w&&
-        a.x+a.w>b.x&&
-        a.y<b.y+b.h&&
-        a.y+a.h>b.y;
+ return a.x < b.x+b.w &&
+        a.x+a.w > b.x &&
+        a.y < b.y+b.h &&
+        a.y+a.h > b.y;
 }
 
 function updateHUD(){
- $("coinLabel").textContent="Coins: "+totalCoins;
- $("scoreLabel").textContent="Score: "+totalScore;
- $("lifeLabel").textContent=
+ $("coinLabel").textContent = "Coins: "+totalCoins;
+ $("scoreLabel").textContent = "Score: "+totalScore;
+
+ $("lifeLabel").textContent =
    "Hearts: "+players.map(p=>p.hearts).join(" / ");
 }
 
@@ -665,123 +702,123 @@ function hurtPlayer(p){
  if(p.invuln>0)return;
 
  p.hearts--;
- p.invuln=100;
- p.x=Math.max(50,p.x-75);
- p.y=FLOOR-p.h;
- p.vx=0;
- p.vy=0;
+ p.invuln = 90;
+
+ p.x = Math.max(50,p.x-65);
+ p.y = FLOOR-p.h;
+ p.vx = 0;
+ p.vy = 0;
 
  if(p.hearts<=0){
-   p.hearts=3;
-   p.x=65;
-   p.y=FLOOR-p.h;
-   $("message").textContent=
+   p.hearts = 3;
+   p.x = 65;
+   p.y = FLOOR-p.h;
+
+   $("message").textContent =
      p.name+" was rescued and returned to the trail!";
  }
 
  updateHUD();
 }
 
-// ===============================================
-// MAIN UPDATE
-// ===============================================
+// ==========================================
+// MAIN GAME UPDATE
+// ==========================================
 
 function update(){
  frame++;
 
- const info=getLevelInfo(level);
+ const info = getLevelInfo(level);
 
  players.forEach((p,i)=>{
    if(p.won)return;
 
-   const input=inputFor(i);
+   const input = inputFor(i);
 
    // Horizontal movement
-   if(input.left)p.vx-=.65;
-   if(input.right)p.vx+=.65;
+   if(input.left)p.vx -= 0.65;
+   if(input.right)p.vx += 0.65;
 
-   if(!input.left&&!input.right)p.vx*=.82;
+   if(!input.left&&!input.right)p.vx *= 0.82;
 
-   p.vx=Math.max(-5.2,Math.min(5.2,p.vx));
+   p.vx = Math.max(-5.2,Math.min(5.2,p.vx));
 
-   // Jump only on the button press
+   // Jump
    if(input.jump&&!p.jumpHeld&&p.grounded){
-     p.vy=-12.5;
-     p.grounded=false;
-     playTone(440,.12,.07);
+     p.vy = -12.5;
+     p.grounded = false;
+     playTone(440,0.12,0.07);
    }
 
-   // Dash only once per button press
+   // Dash
    if(input.dash&&!p.dashHeld&&p.dashCooldown<=0){
-     const direction=input.left?-1:
-       input.right?1:(p.vx<0?-1:1);
+     const direction =
+       input.left?-1:input.right?1:(p.vx<0?-1:1);
 
-     p.vx=direction*12;
-     p.dash=16;
-     p.dashCooldown=45;
-     playTone(180,.18,.07,"sawtooth");
+     p.vx = direction*12;
+     p.dash = 16;
+     p.dashCooldown = 45;
+
+     playTone(180,0.18,0.07,"sawtooth");
    }
 
-   p.jumpHeld=input.jump;
-   p.dashHeld=input.dash;
+   p.jumpHeld = input.jump;
+   p.dashHeld = input.dash;
 
    if(p.dash>0)p.dash--;
    if(p.dashCooldown>0)p.dashCooldown--;
 
    // Gravity and movement
-   p.vy+=.55;
-   p.x+=p.vx;
-   p.y+=p.vy;
+   p.vy += 0.55;
+   p.x += p.vx;
+   p.y += p.vy;
 
-   p.grounded=false;
+   p.grounded = false;
 
-   if(p.x<0)p.x=0;
+   // World boundaries
+   p.x = Math.max(0,Math.min(worldWidth-p.w,p.x));
 
-   if(p.x+p.w>worldWidth){
-     p.x=worldWidth-p.w;
-   }
-
-   // Ground
+   // Ground collision
    if(p.y+p.h>=FLOOR){
-     p.y=FLOOR-p.h;
-     p.vy=0;
-     p.grounded=true;
+     p.y = FLOOR-p.h;
+     p.vy = 0;
+     p.grounded = true;
    }
 
-   // Platform landing
+   // Platform collision: landing from above only
    platforms.forEach(pl=>{
-     const horizontal=
-       p.x+p.w>pl.x&&p.x<pl.x+pl.w;
+     const horizontal =
+       p.x+p.w>pl.x && p.x<pl.x+pl.w;
 
-     const falling=p.vy>=0;
+     const falling = p.vy>=0;
 
-     const crossedTop=
-       p.y+p.h>=pl.y&&
+     const crossedTop =
+       p.y+p.h>=pl.y &&
        p.y+p.h-p.vy<=pl.y;
 
      if(horizontal&&falling&&crossedTop){
-       p.y=pl.y-p.h;
-       p.vy=0;
-       p.grounded=true;
+       p.y = pl.y-p.h;
+       p.vy = 0;
+       p.grounded = true;
      }
    });
 
    if(p.invuln>0)p.invuln--;
 
-   p.anim+=Math.abs(p.vx)*.08;
+   p.anim += Math.abs(p.vx)*0.08;
 
-   // Collect coins
+   // Coins
    coins.forEach(c=>{
      if(c.got)return;
 
-     const nearX=Math.abs(p.x+p.w/2-c.x)<23;
-     const nearY=Math.abs(p.y+p.h/2-c.y)<27;
+     const nearX = Math.abs(p.x+p.w/2-c.x)<23;
+     const nearY = Math.abs(p.y+p.h/2-c.y)<27;
 
      if(nearX&&nearY){
-       c.got=true;
+       c.got = true;
        totalCoins++;
-       totalScore+=10;
-       playTone(880,.15,.07);
+       totalScore += 10;
+       playTone(880,0.15,0.07);
        updateHUD();
      }
    });
@@ -792,46 +829,47 @@ function update(){
    });
  });
 
- // Enemy movement and collisions
+ // Enemies
  enemies.forEach(e=>{
    if(!e.alive)return;
 
-   e.phase+=.04;
+   e.phase += 0.04;
 
    if(e.type==="cloud"){
-     e.y=e.baseY+Math.sin(e.phase)*40;
+     e.y = e.baseY+Math.sin(e.phase)*35;
    }
 
    if(e.type==="shadow"){
-     e.y=e.baseY+Math.sin(e.phase)*12;
+     e.y = e.baseY+Math.sin(e.phase)*10;
    }
 
-   e.x+=e.vx;
+   e.x += e.vx;
 
-   if(e.x<100||e.x>worldWidth-160)e.vx*=-1;
+   if(e.x<100||e.x>worldWidth-170){
+     e.vx *= -1;
+   }
 
    players.forEach(p=>{
      if(p.won||!e.alive||!rects(p,e))return;
 
-     const stomp=
-       p.vy>1&&p.y+p.h-e.y<25;
+     const stomp =
+       p.vy>1 && p.y+p.h-e.y<25;
 
-     const dashHit=p.dash>0;
+     const dashHit = p.dash>0;
 
      if(stomp||dashHit){
        e.hp--;
-       p.vy=-8;
+       p.vy = -8;
 
-       totalScore+=e.boss?30:20;
-
-       playTone(e.boss?300:660,.2,.08);
+       totalScore += e.boss?30:20;
+       playTone(e.boss?300:660,0.2,0.08);
 
        if(e.hp<=0){
-         e.alive=false;
+         e.alive = false;
 
          if(e.boss){
-           playTone(110,.7,.1,"sawtooth");
-           $("message").textContent="🌟 BOSS DEFEATED!";
+           $("message").textContent = "🌟 BOSS DEFEATED!";
+           playTone(110,0.5,0.1,"sawtooth");
          }
        }
 
@@ -842,97 +880,102 @@ function update(){
    });
  });
 
- // ==========================================
- // FIXED GOAL DETECTION
- // ==========================================
+ // ========================================
+ // PORTAL — GUARANTEED GOAL COLLISION
+ // ========================================
 
- const portal={
-   x:worldWidth-160,
-   y:FLOOR-135,
-   w:120,
-   h:135
+ const portal = {
+   x:worldWidth-145,
+   y:FLOOR-120,
+   w:110,
+   h:120
  };
 
- let winner=null;
+ let winner = null;
 
- players.forEach(p=>{
+ for(const p of players){
    if(!p.won&&rects(p,portal)){
-     p.won=true;
-     winner=p;
+     p.won = true;
+     winner = p;
+     break;
    }
- });
+ }
 
  if(winner){
-   totalScore+=100;
-   updateHUD();
+   totalScore += 100;
 
    if(gameMode==="coop"){
      players.forEach(p=>p.won=true);
-     $("message").textContent=
+
+     $("message").textContent =
        "🌟 TEAM PORTAL ACTIVATED! Everyone wins!";
    }else{
-     $("message").textContent=
+     $("message").textContent =
        "🏆 "+winner.name+" reached the goal first!";
    }
 
+   updateHUD();
    completeLevel();
    return;
  }
 
- // Camera follows the furthest player
- const furthest=Math.max(...players.map(p=>p.x));
+ // Shared camera
+ const furthest = Math.max(...players.map(p=>p.x));
 
- camera=Math.max(
+ camera = Math.max(
    0,
-   Math.min(worldWidth-W,furthest-W*.48)
+   Math.min(worldWidth-W,furthest-W*0.48)
  );
 }
 
-// ===============================================
+// ==========================================
 // LEVEL COMPLETION
-// ===============================================
+// ==========================================
 
 function completeLevel(){
  if(!running)return;
 
- running=false;
- paused=false;
+ stopGame();
 
- unlocked=Math.max(unlocked,Math.min(14,level+1));
+ unlocked = Math.max(
+   unlocked,
+   Math.min(14,level+1)
+ );
 
  try{
    localStorage.setItem("tkoiUnlocked",String(unlocked));
- }catch(e){}
+ }catch(error){}
 
  playVictory();
- draw();
 
- const info=getLevelInfo(level);
- const hasNext=level<14;
+ const info = getLevelInfo(level);
+ const hasNext = level<14;
 
- const old=$("finishPanel");
+ const old = $("finishPanel");
  if(old)old.remove();
 
- const panel=document.createElement("div");
- panel.id="finishPanel";
- panel.className="panel";
+ const panel = document.createElement("div");
+ panel.id = "finishPanel";
+ panel.className = "panel";
 
- const heading=document.createElement("h2");
- heading.textContent=hasNext?
-   "🎉 Stage Complete!":"🏆 YOU CONQUERED THE ADVENTURE!";
+ const heading = document.createElement("h2");
+ heading.textContent = hasNext
+   ?"🎉 Stage Complete!"
+   :"🏆 YOU CONQUERED THE ADVENTURE!";
 
- const details=document.createElement("p");
- details.textContent=info.data.name+" — "+info.name;
+ const details = document.createElement("p");
+ details.textContent =
+   info.data.name+" — "+info.name;
 
- const stats=document.createElement("p");
- stats.textContent=
+ const stats = document.createElement("p");
+ stats.textContent =
    "Coins: "+totalCoins+" · Score: "+totalScore;
 
- const nextButton=document.createElement("button");
- nextButton.textContent=hasNext?"NEXT LEVEL":"WORLD MAP";
+ const nextButton = document.createElement("button");
+ nextButton.textContent = hasNext?"NEXT LEVEL":"WORLD MAP";
 
- const mapButton=document.createElement("button");
- mapButton.textContent="LEVEL SELECT";
+ const mapButton = document.createElement("button");
+ mapButton.textContent = "LEVEL SELECT";
 
  nextButton.addEventListener("click",()=>{
    panel.remove();
@@ -955,45 +998,46 @@ function completeLevel(){
  $("playArea").appendChild(panel);
 }
 
-// ===============================================
+// ==========================================
 // DRAWING
-// ===============================================
+// ==========================================
 
 function drawBackground(info){
- const data=info.data;
+ const data = info.data;
 
- ctx.fillStyle=data.sky;
+ ctx.fillStyle = data.sky;
  ctx.fillRect(0,0,W,H);
 
- // Floating fantasy scenery
+ // Floating background lights
  for(let i=0;i<12;i++){
-   const x=(
-     (i*290-camera*.25)%(W+300)+W+300
-   )%(W+300)-100;
+   const x =
+     ((i*290-camera*0.2)%(W+300)+W+300)%(W+300)-100;
 
-   ctx.globalAlpha=.18;
-   ctx.fillStyle=data.accent;
+   ctx.globalAlpha = 0.18;
+   ctx.fillStyle = data.accent;
+
    ctx.beginPath();
    ctx.arc(x,110+(i%3)*65,42+(i%3)*15,0,Math.PI*2);
    ctx.fill();
  }
 
- ctx.globalAlpha=1;
+ ctx.globalAlpha = 1;
 
  // Ground
- ctx.fillStyle=data.ground;
+ ctx.fillStyle = data.ground;
  ctx.fillRect(0,FLOOR,W,H-FLOOR);
 
- ctx.fillStyle=data.accent;
+ ctx.fillStyle = data.accent;
  ctx.fillRect(0,FLOOR,W,7);
 
- // Background decorative trees/crystals/castle silhouettes
+ // Background decorations
  for(let i=0;i<9;i++){
-   const x=i*145-camera*.12;
+   const x = i*145-camera*0.12;
 
    if(info.world===0){
      ctx.fillStyle="#24683f";
      ctx.fillRect(x+15,300,18,170);
+
      ctx.beginPath();
      ctx.arc(x+24,300,48,0,Math.PI*2);
      ctx.fill();
@@ -1021,16 +1065,16 @@ function drawBackground(info){
    }
  }
 
- ctx.globalAlpha=1;
+ ctx.globalAlpha = 1;
 }
 
 function drawPlayer(p){
- const x=p.x-camera;
- const y=p.y;
+ const x = p.x-camera;
+ const y = p.y;
 
  if(p.invuln>0&&Math.floor(frame/5)%2===0)return;
 
- // Ground shadow
+ // Shadow
  ctx.fillStyle="#0003";
  ctx.beginPath();
  ctx.ellipse(x+15,FLOOR-3,17,5,0,0,Math.PI*2);
@@ -1063,7 +1107,7 @@ function drawPlayer(p){
  ctx.strokeStyle="#9c4d4d";
  ctx.lineWidth=2;
  ctx.beginPath();
- ctx.arc(x+15,y+17,5,.15,Math.PI-.15);
+ ctx.arc(x+15,y+17,5,0.15,Math.PI-0.15);
  ctx.stroke();
 
  // Scarf
@@ -1072,7 +1116,7 @@ function drawPlayer(p){
 
  ctx.beginPath();
  ctx.moveTo(x+5,y+31);
- ctx.lineTo(x-8,y+45+Math.sin(frame*.2)*4);
+ ctx.lineTo(x-8,y+45+Math.sin(frame*0.2)*4);
  ctx.lineTo(x+8,y+36);
  ctx.fill();
 
@@ -1081,16 +1125,11 @@ function drawPlayer(p){
  ctx.fillRect(x+3,y+38,10,5);
  ctx.fillRect(x+18,y+38,10,5);
 
+ // Name
  ctx.fillStyle="white";
  ctx.font="12px Arial";
  ctx.textAlign="center";
  ctx.fillText(p.name,x+15,y-9);
-
- if(p.won){
-   ctx.fillStyle="#fff";
-   ctx.font="bold 12px Arial";
-   ctx.fillText("READY!",x+15,y-24);
- }
 }
 
 function drawEnemy(e){
@@ -1114,12 +1153,12 @@ function drawEnemy(e){
  ctx.fill();
 
  ctx.fillStyle="#fff";
- ctx.fillRect(x+e.w*.25,y+e.h*.3,7,9);
- ctx.fillRect(x+e.w*.65,y+e.h*.3,7,9);
+ ctx.fillRect(x+e.w*0.25,y+e.h*0.3,7,9);
+ ctx.fillRect(x+e.w*0.65,y+e.h*0.3,7,9);
 
  ctx.fillStyle="#222";
- ctx.fillRect(x+e.w*.28,y+e.h*.34,3,5);
- ctx.fillRect(x+e.w*.68,y+e.h*.34,3,5);
+ ctx.fillRect(x+e.w*0.28,y+e.h*0.34,3,5);
+ ctx.fillRect(x+e.w*0.68,y+e.h*0.34,3,5);
 
  if(e.boss){
    ctx.fillStyle="white";
@@ -1130,41 +1169,41 @@ function drawEnemy(e){
 }
 
 function drawPortal(){
- const px=worldWidth-160;
- const py=FLOOR-135;
+ const px=worldWidth-145;
+ const py=FLOOR-120;
 
  ctx.save();
 
  ctx.shadowColor="#e5aaff";
- ctx.shadowBlur=28;
+ ctx.shadowBlur=25;
 
  ctx.fillStyle="#8d45ed";
  ctx.beginPath();
- ctx.ellipse(px+60,py+70,55,68,0,0,Math.PI*2);
+ ctx.ellipse(px+55,py+65,52,63,0,0,Math.PI*2);
  ctx.fill();
 
  ctx.shadowBlur=0;
 
  ctx.fillStyle="#fff4ff";
  ctx.beginPath();
- ctx.ellipse(px+60,py+70,41,55,0,0,Math.PI*2);
+ ctx.ellipse(px+55,py+65,39,51,0,0,Math.PI*2);
  ctx.fill();
 
  ctx.fillStyle="#7435cc";
  ctx.beginPath();
- ctx.ellipse(px+60,py+70,28,44,0,0,Math.PI*2);
+ ctx.ellipse(px+55,py+65,26,41,0,0,Math.PI*2);
  ctx.fill();
 
  ctx.fillStyle="white";
  ctx.font="bold 18px Arial";
  ctx.textAlign="center";
- ctx.fillText("GOAL!",px+60,py-12);
+ ctx.fillText("GOAL!",px+55,py-12);
 
  ctx.restore();
 }
 
 function draw(){
- const info=getLevelInfo(level);
+ const info = getLevelInfo(level);
 
  drawBackground(info);
 
@@ -1218,10 +1257,11 @@ function draw(){
  ctx.fillStyle="#ffffffbb";
  ctx.fillRect(20,18,200,9);
 
- ctx.fillStyle="#ffe477";
- const progress=players.length?
-   Math.min(1,Math.max(...players.map(p=>p.x))/worldWidth):0;
+ const progress = players.length
+   ?Math.min(1,Math.max(...players.map(p=>p.x))/worldWidth)
+   :0;
 
+ ctx.fillStyle="#ffe477";
  ctx.fillRect(20,18,200*progress,9);
 
  ctx.fillStyle="#17203b";
@@ -1240,24 +1280,27 @@ function draw(){
  }
 }
 
-// ===============================================
+// ==========================================
 // GAME LOOP
-// ===============================================
+// ==========================================
 
-function loop(time){
+function loop(){
+ animationId = null;
+
  if(!running||paused)return;
-
- lastTime=time;
 
  update();
 
  if(running&&!paused){
    draw();
-   requestAnimationFrame(loop);
+   animationId = requestAnimationFrame(loop);
  }
 }
 
-// Initial menu
+// ==========================================
+// STARTUP
+// ==========================================
+
 showScreen("menu");
 checkControllers();
 
